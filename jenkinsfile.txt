@@ -1,0 +1,55 @@
+pipeline {
+    agent any
+    tools {
+     ant "Ant"
+    jdk "JAVA-1.8.0"
+    }
+    stages {
+        stage('Git Clone Stage') {
+            steps {
+                git branch: 'main', credentialsId: 'gittest', url: 'https://github.com/sivaprasadkmastech/POCMDMAE.git'
+            }
+        }
+        stage('Build Stage') {
+           steps {
+                sh "ant -f  /home/appadmin/workspace/MDMAEPOC1/build.xml"
+            }
+        }
+        stage('Build copy Stage to Build Server') {
+            steps {
+                sh 'scp /home/appadmin/workspace/MDMAEPOC1/artifacts/MITBusinessComponents.*.cba /home/appadmin/oldbuilds/MDMAEPOC1/artifacts/'
+                sh "chmod 777 /home/appadmin/workspace/MDMAEPOC1/SSHremovercbabuild.sh"
+                sh "/home/appadmin/workspace/MDMAEPOC1/SSHremovercbabuild.sh"
+                sh "scp -v -o StrictHostKeyChecking=no /home/appadmin/workspace/MDMAEPOC1/artifacts/MITBusinessComponents.*.cba wasadmin@10.100.15.30:/opt/webAS/deployments/artifacts"
+                sh "scp -v -o StrictHostKeyChecking=no /home/appadmin/workspace/MDMAEPOC1/MITDeploy.py wasadmin@10.100.15.30:/opt/webAS/deployments"
+                sh "scp -v -o StrictHostKeyChecking=no /home/appadmin/workspace/MDMAEPOC1/Config.properties wasadmin@10.100.15.30:/opt/webAS/deployments"
+            }
+        }
+        stage('Deploy Stage') {
+          steps {
+                sh "pwd"
+                sh "chmod 777 /home/appadmin/workspace/MDMAEPOC1/SSHMITDeploy.sh"
+                sh "/home/appadmin/workspace/MDMAEPOC1/SSHMITDeploy.sh"
+                sh "chmod 777 /home/appadmin/workspace/MDMAEPOC1/SSHremovepy.sh"
+                sh "/home/appadmin/workspace/MDMAEPOC1/SSHremovepy.sh"
+              }
+        }
+        stage('Regression Test') {
+            steps {
+              //sh "/home/appadmin/SmartBear/SoapUI-5.5.0/bin/testrunner.sh -r -t/home/appadmin/soapui-settings.xml -I /home/appadmin/SmartBear/SoapUI-5.5.0/bin/OOTBTesting-soapui-project.xml"
+                sh "/home/appadmin/SmartBear/SoapUI-5.5.0/bin/testrunner.sh -r -M /home/appadmin/SmartBear/SoapUI-5.5.0/bin/OOTBTesting-soapui-project.xml -a -f/home/appadmin/SmartBear/SoapUI-5.5.0/Reports"
+            }
+        }
+        stage('Slack notification Stage') {
+          steps {
+            slackSend(channel:'mdmslack', message: "Deploy Sucessful in Dev here is the info -job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
+          }
+        }
+        stage('Email Notification'){
+            steps {
+                emailext body: "${currentBuild.currentResult}: Job ${env.JOB_NAME}\nMore Info can be found here: ${env.BUILD_URL}", 
+                subject: '$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!', to: 'sivamit2022@gmail.com'
+            }
+        }
+    }
+}
