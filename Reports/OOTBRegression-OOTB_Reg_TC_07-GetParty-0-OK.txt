@@ -1,0 +1,212 @@
+Status: OK
+Time Taken: 910
+Size: 7290
+Timestamp: Wed Aug 16 17:56:50 IST 2023
+TestStep: GetParty
+
+----------------- Messages ------------------------------
+
+----------------- Properties ------------------------------
+Endpoint: http://10.100.15.30:9080/MDMWSProvider/MDMService
+Username: wasadmin
+Encoding: UTF-8
+Password: Was@dm1n
+
+---------------- Request ---------------------------
+Request Headers: SOAPAction : ""
+Accept : application/xml
+Context-Type : application/xml
+Connection : Keep-Alive
+User-Agent : Apache-HttpClient/4.1.1 (java 1.5)
+Host : 10.100.15.30:9080
+Accept-Encoding : gzip,deflate
+Content-Length : 1680
+Content-Type : text/xml;charset=UTF-8
+
+
+<soapenv:Envelope xmlns:par="http://www.ibm.com/mdm/port/Party" xmlns:sch="http://www.ibm.com/mdm/schema" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
+   <soapenv:Header>
+      <wsse:Security soapenv:mustUnderstand="1" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+         <wsse:UsernameToken wsu:Id="UsernameToken-115931867A12E8D4B4169218881022911">
+            <wsse:Username>wasadmin</wsse:Username>
+            <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">Was@dm1n</wsse:Password>
+            <wsse:Nonce EncodingType="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-soap-message-security-1.0#Base64Binary">TCWYlw1OBUZ6J+ix9ejobg==</wsse:Nonce>
+            <wsu:Created>2023-08-16T12:26:50.229Z</wsu:Created>
+         </wsse:UsernameToken>
+      </wsse:Security>
+   </soapenv:Header>
+   <soapenv:Body>
+      <par:getParty>
+         <RequestControl xmlns="http://www.ibm.com/mdm/schema">
+            <requestID>1551953833772</requestID>
+            <DWLControl>
+               <requesterName>MDNBMatch</requesterName>
+               <requesterLanguage>100</requesterLanguage>
+               <transactionCorrelatorId/>
+            </DWLControl>
+         </RequestControl>
+         <sch:InquiryParam>
+            <tcrmParam name="PartyId">233469200647991901</tcrmParam>
+            <tcrmParam name="PartyType">p</tcrmParam>
+            <tcrmParam name="InquiryLevel">4</tcrmParam>
+         </sch:InquiryParam>
+      </par:getParty>
+   </soapenv:Body>
+</soapenv:Envelope>
+
+---------------- Response --------------------------
+Response Headers: #status# : HTTP/1.1 200 OK
+Content-Length : 7290
+Content-Language : en-IN
+Date : Wed, 16 Aug 2023 12:20:50 GMT
+X-Powered-By : Servlet/3.1
+Content-Type : text/xml; charset=UTF-8
+
+
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
+   <soapenv:Body>
+      <port:getPartyResponse xmlns:port="http://www.ibm.com/mdm/port/Party">
+         <ResponseControl xmlns="http://www.ibm.com/mdm/schema">
+            <ResultCode>SUCCESS</ResultCode>
+            <ServiceTime>867</ServiceTime>
+            <DWLControl>
+               <requesterName>wasadmin</requesterName>
+               <requesterLanguage>100</requesterLanguage>
+               <requesterLocale>en</requesterLocale>
+               <requesterTimeZone>US/Eastern</requesterTimeZone>
+               <requestID>1551953833772</requestID>
+            </DWLControl>
+         </ResponseControl>
+         <TxResult xmlns="http://www.ibm.com/mdm/schema">
+            <ResultCode>SUCCESS</ResultCode>
+         </TxResult>
+         <TCRMPersonBObj xmlns="http://www.ibm.com/mdm/schema">
+            <PartyId>233469200647991901</PartyId>
+            <DisplayName>Selena Jacob</DisplayName>
+            <PreferredLanguageType>100</PreferredLanguageType>
+            <PreferredLanguageValue>English</PreferredLanguageValue>
+            <PartyType>P</PartyType>
+            <CreatedDate>2023-08-14 05:47:59.903</CreatedDate>
+            <DoNotDeleteIndicator>1</DoNotDeleteIndicator>
+            <LastVerifiedDate>2013-12-24 00:00:00.0</LastVerifiedDate>
+            <PartyLastUpdateDate>2023-08-14 05:47:59.918</PartyLastUpdateDate>
+            <PartyLastUpdateUser>wasadmin</PartyLastUpdateUser>
+            <PartyLastUpdateTxId>839969200647990201</PartyLastUpdateTxId>
+            <PersonPartyId>233469200647991901</PersonPartyId>
+            <BirthDate>2000-01-27 00:00:00.0</BirthDate>
+            <GenderType>M</GenderType>
+            <PartyActiveIndicator>Y</PartyActiveIndicator>
+            <PersonLastUpdateDate>2023-08-14 05:47:59.92</PersonLastUpdateDate>
+            <PersonLastUpdateUser>wasadmin</PersonLastUpdateUser>
+            <PersonLastUpdateTxId>839969200647990201</PersonLastUpdateTxId>
+            <TCRMExtension>
+               <ExtendedObject>XPersonBObjExt</ExtendedObject>
+               <XPersonBObjExt/>
+            </TCRMExtension>
+            <TCRMPartyContactMethodBObj>
+               <PartyContactMethodIdPK>236569200647994601</PartyContactMethodIdPK>
+               <PartyId>233469200647991901</PartyId>
+               <ContactMethodId>237069200647994501</ContactMethodId>
+               <ContactMethodUsageType>7</ContactMethodUsageType>
+               <ContactMethodUsageValue>Personal Email</ContactMethodUsageValue>
+               <StartDate>2023-08-16 08:20:51.129</StartDate>
+               <SourceIdentifierType>1</SourceIdentifierType>
+               <SourceIdentifierValue>Retail Banking System</SourceIdentifierValue>
+               <ContactMethodGroupLastUpdateDate>2023-08-16 08:20:51.129</ContactMethodGroupLastUpdateDate>
+               <ContactMethodGroupLastUpdateUser>wasadmin</ContactMethodGroupLastUpdateUser>
+               <ContactMethodGroupLastUpdateTxId>125069218845110501</ContactMethodGroupLastUpdateTxId>
+               <LocationGroupLastUpdateDate>2023-08-16 08:20:51.129</LocationGroupLastUpdateDate>
+               <LocationGroupLastUpdateUser>wasadmin</LocationGroupLastUpdateUser>
+               <LocationGroupLastUpdateTxId>125069218845110501</LocationGroupLastUpdateTxId>
+               <TCRMContactMethodBObj>
+                  <ContactMethodIdPK>237069200647994501</ContactMethodIdPK>
+                  <ReferenceNumber>Taylor00@mail.com</ReferenceNumber>
+                  <ContactMethodType>2</ContactMethodType>
+                  <ContactMethodValue>Email Address</ContactMethodValue>
+                  <ContactMethodLastUpdateDate>2023-08-14 05:47:59.944</ContactMethodLastUpdateDate>
+                  <ContactMethodLastUpdateUser>wasadmin</ContactMethodLastUpdateUser>
+                  <ContactMethodLastUpdateTxId>839969200647990201</ContactMethodLastUpdateTxId>
+                  <DWLStatus>
+                     <Status>0</Status>
+                  </DWLStatus>
+               </TCRMContactMethodBObj>
+               <DWLStatus>
+                  <Status>0</Status>
+               </DWLStatus>
+            </TCRMPartyContactMethodBObj>
+            <TCRMPartyContactMethodBObj>
+               <PartyContactMethodIdPK>236169200647994901</PartyContactMethodIdPK>
+               <PartyId>233469200647991901</PartyId>
+               <ContactMethodId>236269200647994801</ContactMethodId>
+               <ContactMethodUsageType>2</ContactMethodUsageType>
+               <ContactMethodUsageValue>Business Telephone</ContactMethodUsageValue>
+               <StartDate>2023-08-16 08:20:51.13</StartDate>
+               <SourceIdentifierType>1</SourceIdentifierType>
+               <SourceIdentifierValue>Retail Banking System</SourceIdentifierValue>
+               <ContactMethodGroupLastUpdateDate>2023-08-16 08:20:51.131</ContactMethodGroupLastUpdateDate>
+               <ContactMethodGroupLastUpdateUser>wasadmin</ContactMethodGroupLastUpdateUser>
+               <ContactMethodGroupLastUpdateTxId>125069218845110501</ContactMethodGroupLastUpdateTxId>
+               <LocationGroupLastUpdateDate>2023-08-16 08:20:51.13</LocationGroupLastUpdateDate>
+               <LocationGroupLastUpdateUser>wasadmin</LocationGroupLastUpdateUser>
+               <LocationGroupLastUpdateTxId>125069218845110501</LocationGroupLastUpdateTxId>
+               <TCRMContactMethodBObj>
+                  <ContactMethodIdPK>236269200647994801</ContactMethodIdPK>
+                  <ReferenceNumber>304191-3660</ReferenceNumber>
+                  <ContactMethodType>1</ContactMethodType>
+                  <ContactMethodValue>Telephone Number</ContactMethodValue>
+                  <ContactMethodLastUpdateDate>2023-08-14 05:47:59.947</ContactMethodLastUpdateDate>
+                  <ContactMethodLastUpdateUser>wasadmin</ContactMethodLastUpdateUser>
+                  <ContactMethodLastUpdateTxId>839969200647990201</ContactMethodLastUpdateTxId>
+                  <DWLStatus>
+                     <Status>0</Status>
+                  </DWLStatus>
+               </TCRMContactMethodBObj>
+               <DWLStatus>
+                  <Status>0</Status>
+               </DWLStatus>
+            </TCRMPartyContactMethodBObj>
+            <TCRMPartyIdentificationBObj>
+               <IdentificationIdPK>235269200647992701</IdentificationIdPK>
+               <PartyId>233469200647991901</PartyId>
+               <IdentificationType>1</IdentificationType>
+               <IdentificationValue>Social Security Number</IdentificationValue>
+               <IdentificationNumber>48132700</IdentificationNumber>
+               <StartDate>2023-08-16 08:20:51.125</StartDate>
+               <SourceIdentifierType>1</SourceIdentifierType>
+               <SourceIdentifierValue>Retail Banking System</SourceIdentifierValue>
+               <PartyIdentificationLastUpdateDate>2023-08-16 08:20:51.125</PartyIdentificationLastUpdateDate>
+               <PartyIdentificationLastUpdateUser>wasadmin</PartyIdentificationLastUpdateUser>
+               <PartyIdentificationLastUpdateTxId>125069218845110501</PartyIdentificationLastUpdateTxId>
+               <DWLStatus>
+                  <Status>0</Status>
+               </DWLStatus>
+            </TCRMPartyIdentificationBObj>
+            <TCRMPersonNameBObj>
+               <PersonNameIdPK>233669200647992401</PersonNameIdPK>
+               <NameUsageType>1</NameUsageType>
+               <NameUsageValue>Legal</NameUsageValue>
+               <GivenNameOne>Selena</GivenNameOne>
+               <StdGivenNameOne>SELENA</StdGivenNameOne>
+               <GivenNameTwo>M</GivenNameTwo>
+               <StdGivenNameTwo>M</StdGivenNameTwo>
+               <LastName>Jacob</LastName>
+               <StdLastName>JACOB</StdLastName>
+               <PersonPartyId>233469200647991901</PersonPartyId>
+               <StartDate>2012-07-24 00:00:00.0</StartDate>
+               <PersonNameLastUpdateDate>2023-08-14 05:47:59.923</PersonNameLastUpdateDate>
+               <PersonNameLastUpdateUser>wasadmin</PersonNameLastUpdateUser>
+               <PersonNameLastUpdateTxId>839969200647990201</PersonNameLastUpdateTxId>
+               <LastUpdatedBy>wasadmin</LastUpdatedBy>
+               <LastUpdatedDate>2023-08-14 05:47:59.923</LastUpdatedDate>
+               <DWLStatus>
+                  <Status>0</Status>
+               </DWLStatus>
+            </TCRMPersonNameBObj>
+            <ComponentID>2000013</ComponentID>
+            <DWLStatus>
+               <Status>0</Status>
+            </DWLStatus>
+         </TCRMPersonBObj>
+      </port:getPartyResponse>
+   </soapenv:Body>
+</soapenv:Envelope>

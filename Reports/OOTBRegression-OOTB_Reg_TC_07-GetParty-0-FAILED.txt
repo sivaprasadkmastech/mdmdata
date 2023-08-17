@@ -1,0 +1,107 @@
+Status: FAILED
+Time Taken: 103
+Size: 1601
+Timestamp: Mon Aug 14 15:21:59 IST 2023
+TestStep: GetParty
+
+----------------- Messages ------------------------------
+[XPath Match] XPathContains comparison failed for path [declare namespace ns1='http://www.ibm.com/mdm/schema';
+//ns1:ResultCode], expecting [SUCCESS], actual was [FATAL]
+[XPath Match 1] XPathContains assertion failed for path [declare namespace ns1='http://www.ibm.com/mdm/schema';
+declare namespace port='http://www.ibm.com/mdm/port/Party';
+declare namespace soapenv='http://schemas.xmlsoap.org/soap/envelope/';
+//ns1:TCRMPersonBObj/ns1:PartyId] : Exception:Missing content for xpath [declare namespace ns1='http://www.ibm.com/mdm/schema';
+declare namespace port='http://www.ibm.com/mdm/port/Party';
+declare namespace soapenv='http://schemas.xmlsoap.org/soap/envelope/';
+//ns1:TCRMPersonBObj/ns1:PartyId] in Response
+
+----------------- Properties ------------------------------
+Endpoint: http://10.100.15.30:9080/MDMWSProvider/MDMService
+Username: wasadmin
+Encoding: UTF-8
+Password: Was@dm1n
+
+---------------- Request ---------------------------
+Request Headers: SOAPAction : ""
+Accept : application/xml
+Context-Type : application/xml
+Connection : Keep-Alive
+User-Agent : Apache-HttpClient/4.1.1 (java 1.5)
+Host : 10.100.15.30:9080
+Accept-Encoding : gzip,deflate
+Content-Length : 1573
+Content-Type : text/xml;charset=UTF-8
+
+
+<soapenv:Envelope xmlns:par="http://www.ibm.com/mdm/port/Party" xmlns:sch="http://www.ibm.com/mdm/schema" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
+   <soapenv:Header>
+      <wsse:Security soapenv:mustUnderstand="1" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+         <wsse:UsernameToken wsu:Id="UsernameToken-FCFFCBBFDC83A5B9F6169200671977711">
+            <wsse:Username>wasadmin</wsse:Username>
+            <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">Was@dm1n</wsse:Password>
+            <wsse:Nonce EncodingType="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-soap-message-security-1.0#Base64Binary">5A00+O4CNxBK8+IZfd5GAA==</wsse:Nonce>
+            <wsu:Created>2023-08-14T09:51:59.777Z</wsu:Created>
+         </wsse:UsernameToken>
+      </wsse:Security>
+   </soapenv:Header>
+   <soapenv:Body>
+      <par:getParty>
+         <RequestControl xmlns="http://www.ibm.com/mdm/schema">
+            <requestID>1551953833772</requestID>
+            <DWLControl>
+               <requesterName>MDNBMatch</requesterName>
+               <requesterLanguage>100</requesterLanguage>
+               <transactionCorrelatorId/>
+            </DWLControl>
+         </RequestControl>
+         <sch:InquiryParam>
+            <PartyId>145269175040189001</PartyId>
+         </sch:InquiryParam>
+      </par:getParty>
+   </soapenv:Body>
+</soapenv:Envelope>
+
+---------------- Response --------------------------
+Response Headers: Connection : Close
+#status# : HTTP/1.1 500 Internal Server Error
+Content-Length : 1601
+Content-Language : en-IN
+Date : Mon, 14 Aug 2023 09:46:13 GMT
+X-Powered-By : Servlet/3.1
+Content-Type : text/xml; charset=UTF-8
+
+
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
+   <soapenv:Body>
+      <soapenv:Fault>
+         <faultcode>soapenv:Server</faultcode>
+         <faultstring>DWLResponseException</faultstring>
+         <detail>
+            <port:processingFault xmlns:port="http://www.ibm.com/mdm/port/Party">
+               <axis2ns1:ResponseControl xmlns:axis2ns1="http://www.ibm.com/mdm/schema">
+                  <axis2ns1:ResultCode>FATAL</axis2ns1:ResultCode>
+                  <axis2ns1:ServiceTime>15</axis2ns1:ServiceTime>
+                  <axis2ns1:DWLControl>
+                     <axis2ns1:requesterName>wasadmin</axis2ns1:requesterName>
+                     <axis2ns1:requesterLanguage>100</axis2ns1:requesterLanguage>
+                     <axis2ns1:requesterLocale>en</axis2ns1:requesterLocale>
+                     <axis2ns1:requestID>1551953833772</axis2ns1:requestID>
+                  </axis2ns1:DWLControl>
+               </axis2ns1:ResponseControl>
+               <axis2ns2:RequestType xmlns:axis2ns2="http://www.ibm.com/mdm/schema">getParty</axis2ns2:RequestType>
+               <axis2ns3:TxResult xmlns:axis2ns3="http://www.ibm.com/mdm/schema">
+                  <axis2ns3:ResultCode>FATAL</axis2ns3:ResultCode>
+                  <axis2ns3:DWLError>
+                     <axis2ns3:ComponentType>108</axis2ns3:ComponentType>
+                     <axis2ns3:ErrorMessage>The transaction name with supplied parameters does not exist.  Please verify that all required parameters are supplied.</axis2ns3:ErrorMessage>
+                     <axis2ns3:ErrorType>READERR</axis2ns3:ErrorType>
+                     <axis2ns3:LanguageCode>100</axis2ns3:LanguageCode>
+                     <axis2ns3:ReasonCode>4932</axis2ns3:ReasonCode>
+                     <axis2ns3:Severity>0</axis2ns3:Severity>
+                  </axis2ns3:DWLError>
+               </axis2ns3:TxResult>
+            </port:processingFault>
+         </detail>
+      </soapenv:Fault>
+   </soapenv:Body>
+</soapenv:Envelope>

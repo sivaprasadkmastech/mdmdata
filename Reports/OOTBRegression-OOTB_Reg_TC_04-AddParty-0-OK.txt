@@ -1,0 +1,366 @@
+Status: OK
+Time Taken: 117
+Size: 11471
+Timestamp: Wed Aug 16 17:56:49 IST 2023
+TestStep: AddParty
+
+----------------- Messages ------------------------------
+
+----------------- Properties ------------------------------
+Endpoint: http://10.100.15.30:9080/MDMWSProvider/MDMService
+Username: wasadmin
+Encoding: UTF-8
+Password: Was@dm1n
+
+---------------- Request ---------------------------
+Request Headers: SOAPAction : ""
+Accept : application/xml
+Context-Type : application/xml
+Connection : Keep-Alive
+User-Agent : Apache-HttpClient/4.1.1 (java 1.5)
+Host : 10.100.15.30:9080
+Accept-Encoding : gzip,deflate
+Content-Length : 6195
+Content-Type : text/xml;charset=UTF-8
+
+
+<soapenv:Envelope xmlns:par="http://www.ibm.com/mdm/port/Party" xmlns:sch="http://www.ibm.com/mdm/schema" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
+   <soapenv:Header>
+      <wsse:Security soapenv:mustUnderstand="1" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+         <wsse:UsernameToken wsu:Id="UsernameToken-115931867A12E8D4B416921888096426">
+            <wsse:Username>wasadmin</wsse:Username>
+            <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">Was@dm1n</wsse:Password>
+            <wsse:Nonce EncodingType="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-soap-message-security-1.0#Base64Binary">RsQxp2MrINhLweDfvx/N/w==</wsse:Nonce>
+            <wsu:Created>2023-08-16T12:26:49.642Z</wsu:Created>
+         </wsse:UsernameToken>
+      </wsse:Security>
+   </soapenv:Header>
+   <soapenv:Body>
+      <par:addParty>
+         <RequestControl>
+            <requestID>1380074</requestID>
+            <DWLControl>
+               <requesterName>MITQA</requesterName>
+               <requesterLocale>en</requesterLocale>
+               <ClientSystemName>SFDC</ClientSystemName>
+            </DWLControl>
+         </RequestControl>
+         <TCRMPersonBObj>
+            <PreferredLanguageType>100</PreferredLanguageType>
+            <PartyType>P</PartyType>
+            <CreatedDate/>
+            <DoNotDeleteIndicator>1</DoNotDeleteIndicator>
+            <LastVerifiedDate>2013-12-24</LastVerifiedDate>
+            <BirthDate>2000-01-27</BirthDate>
+            <GenderType>M</GenderType>
+            <TCRMExtension>
+               <ExtendedObject>XPersonBObjExt</ExtendedObject>
+               <XPersonBObjExt>
+                  <XBandLevel>1st</XBandLevel>
+               </XPersonBObjExt>
+            </TCRMExtension>
+            <TCRMPartyAddressBObj>
+               <AddressUsageType>1</AddressUsageType>
+               <StartDate>2022-08-03</StartDate>
+               <EndDate>2022-08-04</EndDate>
+               <TCRMAddressBObj>
+                  <AddressLineOne>504 Main RD</AddressLineOne>
+                  <City>Chennai</City>
+                  <ZipPostalCode>139591</ZipPostalCode>
+                  <ProvinceStateValue/>
+                  <StandardFormatingIndicator>Y</StandardFormatingIndicator>
+                  <StreetNumber>22</StreetNumber>
+               </TCRMAddressBObj>
+            </TCRMPartyAddressBObj>
+            <TCRMPartyContactMethodBObj>
+               <ContactMethodUsageType>7</ContactMethodUsageType>
+               <SourceIdentifierType>1</SourceIdentifierType>
+               <TCRMContactMethodBObj>
+                  <ReferenceNumber>Tina04@mail.com</ReferenceNumber>
+                  <ContactMethodType>2</ContactMethodType>
+               </TCRMContactMethodBObj>
+            </TCRMPartyContactMethodBObj>
+            <TCRMPartyContactMethodBObj>
+               <ContactMethodUsageType>2</ContactMethodUsageType>
+               <SourceIdentifierType>1</SourceIdentifierType>
+               <TCRMContactMethodBObj>
+                  <ReferenceNumber>304191-3374</ReferenceNumber>
+                  <ContactMethodType>1</ContactMethodType>
+               </TCRMContactMethodBObj>
+            </TCRMPartyContactMethodBObj>
+            <TCRMPartyIdentificationBObj>
+               <IdentificationType>1</IdentificationType>
+               <IdentificationNumber>48132774</IdentificationNumber>
+               <SourceIdentifierType>1</SourceIdentifierType>
+            </TCRMPartyIdentificationBObj>
+            <TCRMAdminContEquivBObj>
+               <AdminPartyId>2002</AdminPartyId>
+               <AdminSystemType>1</AdminSystemType>
+            </TCRMAdminContEquivBObj>
+            <TCRMPersonNameBObj>
+               <NameUsageType>1</NameUsageType>
+               <PrefixDescription/>
+               <GivenNameOne>Tina</GivenNameOne>
+               <GivenNameTwo>John</GivenNameTwo>
+               <LastName>Fell</LastName>
+               <Suffix/>
+               <StartDate>2012-07-24</StartDate>
+               <EndDate/>
+               <StandardFormattingIndicator>N</StandardFormattingIndicator>
+            </TCRMPersonNameBObj>
+         </TCRMPersonBObj>
+      </par:addParty>
+   </soapenv:Body>
+</soapenv:Envelope>
+
+---------------- Response --------------------------
+Response Headers: #status# : HTTP/1.1 200 OK
+Content-Length : 11471
+Content-Language : en-IN
+Date : Wed, 16 Aug 2023 12:20:50 GMT
+X-Powered-By : Servlet/3.1
+Content-Type : text/xml; charset=UTF-8
+
+
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
+   <soapenv:Body>
+      <port:addPartyResponse xmlns:port="http://www.ibm.com/mdm/port/Party">
+         <ResponseControl xmlns="http://www.ibm.com/mdm/schema">
+            <ResultCode>SUCCESS</ResultCode>
+            <ServiceTime>66</ServiceTime>
+            <DWLControl>
+               <requesterName>wasadmin</requesterName>
+               <requesterLanguage>100</requesterLanguage>
+               <requesterLocale>en</requesterLocale>
+               <requesterTimeZone>US/Eastern</requesterTimeZone>
+               <requestID>1380074</requestID>
+            </DWLControl>
+         </ResponseControl>
+         <TxResult xmlns="http://www.ibm.com/mdm/schema">
+            <ResultCode>SUCCESS</ResultCode>
+         </TxResult>
+         <TCRMPersonBObj xmlns="http://www.ibm.com/mdm/schema">
+            <PartyId>581969175040115101</PartyId>
+            <DisplayName>Tina Fell</DisplayName>
+            <PreferredLanguageType>100</PreferredLanguageType>
+            <PreferredLanguageValue>English</PreferredLanguageValue>
+            <PartyType>P</PartyType>
+            <CreatedDate>2023-08-11 06:40:01.145</CreatedDate>
+            <MandatorySearchDone>Y</MandatorySearchDone>
+            <DoNotDeleteIndicator>1</DoNotDeleteIndicator>
+            <LastVerifiedDate>2013-12-24 00:00:00.0</LastVerifiedDate>
+            <PartyLastUpdateDate>2023-08-11 06:40:01.15</PartyLastUpdateDate>
+            <PartyLastUpdateUser>wasadmin</PartyLastUpdateUser>
+            <PartyLastUpdateTxId>287869175040114501</PartyLastUpdateTxId>
+            <PersonPartyId>581969175040115101</PersonPartyId>
+            <BirthDate>2000-01-27 00:00:00.0</BirthDate>
+            <GenderType>M</GenderType>
+            <PartyActiveIndicator>Y</PartyActiveIndicator>
+            <PersonLastUpdateDate>2023-08-11 06:40:01.161</PersonLastUpdateDate>
+            <PersonLastUpdateUser>wasadmin</PersonLastUpdateUser>
+            <PersonLastUpdateTxId>287869175040114501</PersonLastUpdateTxId>
+            <TCRMExtension>
+               <ExtendedObject>XPersonBObjExt</ExtendedObject>
+               <XPersonBObjExt>
+                  <XBandLevel>1st</XBandLevel>
+               </XPersonBObjExt>
+            </TCRMExtension>
+            <TCRMPartyAddressBObj>
+               <PartyAddressIdPK>588469218845069301</PartyAddressIdPK>
+               <PartyId>581969175040115101</PartyId>
+               <AddressId>584469218845069101</AddressId>
+               <AddressUsageType>1</AddressUsageType>
+               <AddressUsageValue>Primary Residence</AddressUsageValue>
+               <StartDate>2022-08-03 00:00:00.0</StartDate>
+               <EndDate>2022-08-04 23:59:59.0</EndDate>
+               <AddressGroupLastUpdateDate>2023-08-16 08:20:50.692</AddressGroupLastUpdateDate>
+               <AddressGroupLastUpdateUser>wasadmin</AddressGroupLastUpdateUser>
+               <AddressGroupLastUpdateTxId>112369218845066001</AddressGroupLastUpdateTxId>
+               <LocationGroupLastUpdateDate>2023-08-16 08:20:50.692</LocationGroupLastUpdateDate>
+               <LocationGroupLastUpdateUser>wasadmin</LocationGroupLastUpdateUser>
+               <LocationGroupLastUpdateTxId>112369218845066001</LocationGroupLastUpdateTxId>
+               <TCRMAddressBObj>
+                  <AddressIdPK>584469218845069101</AddressIdPK>
+                  <AddressLineOne>504 Main RD</AddressLineOne>
+                  <City>Chennai</City>
+                  <ZipPostalCode>139591</ZipPostalCode>
+                  <StandardFormatingIndicator>Y</StandardFormatingIndicator>
+                  <AddressLastUpdateDate>2023-08-16 08:20:50.69</AddressLastUpdateDate>
+                  <AddressLastUpdateUser>wasadmin</AddressLastUpdateUser>
+                  <AddressLastUpdateTxId>112369218845066001</AddressLastUpdateTxId>
+                  <DWLStatus>
+                     <Status>0</Status>
+                  </DWLStatus>
+               </TCRMAddressBObj>
+               <DWLStatus>
+                  <Status>0</Status>
+               </DWLStatus>
+            </TCRMPartyAddressBObj>
+            <TCRMPartyContactMethodBObj>
+               <PartyContactMethodIdPK>586869175040127001</PartyContactMethodIdPK>
+               <PartyId>581969175040115101</PartyId>
+               <ContactMethodId>583669175040123701</ContactMethodId>
+               <ContactMethodUsageType>7</ContactMethodUsageType>
+               <ContactMethodUsageValue>Personal Email</ContactMethodUsageValue>
+               <StartDate>2023-08-16 08:20:50.694</StartDate>
+               <SourceIdentifierType>1</SourceIdentifierType>
+               <SourceIdentifierValue>Retail Banking System</SourceIdentifierValue>
+               <ContactMethodGroupLastUpdateDate>2023-08-16 08:20:50.694</ContactMethodGroupLastUpdateDate>
+               <ContactMethodGroupLastUpdateUser>wasadmin</ContactMethodGroupLastUpdateUser>
+               <ContactMethodGroupLastUpdateTxId>112369218845066001</ContactMethodGroupLastUpdateTxId>
+               <LocationGroupLastUpdateDate>2023-08-16 08:20:50.694</LocationGroupLastUpdateDate>
+               <LocationGroupLastUpdateUser>wasadmin</LocationGroupLastUpdateUser>
+               <LocationGroupLastUpdateTxId>112369218845066001</LocationGroupLastUpdateTxId>
+               <TCRMContactMethodBObj>
+                  <ContactMethodIdPK>583669175040123701</ContactMethodIdPK>
+                  <ReferenceNumber>Tina04@mail.com</ReferenceNumber>
+                  <ContactMethodType>2</ContactMethodType>
+                  <ContactMethodValue>Email Address</ContactMethodValue>
+                  <ContactMethodLastUpdateDate>2023-08-11 06:40:01.236</ContactMethodLastUpdateDate>
+                  <ContactMethodLastUpdateUser>wasadmin</ContactMethodLastUpdateUser>
+                  <ContactMethodLastUpdateTxId>287869175040114501</ContactMethodLastUpdateTxId>
+                  <DWLStatus>
+                     <Status>5</Status>
+                     <DWLError>
+                        <ComponentType>99</ComponentType>
+                        <ErrorMessage>The data submitted already exists on the database; no update applied.</ErrorMessage>
+                        <ErrorType>DRECERR</ErrorType>
+                        <LanguageCode>100</LanguageCode>
+                        <ReasonCode>603</ReasonCode>
+                        <Severity>5</Severity>
+                        <SeverityValue>Warning</SeverityValue>
+                     </DWLError>
+                  </DWLStatus>
+               </TCRMContactMethodBObj>
+               <DWLStatus>
+                  <Status>0</Status>
+               </DWLStatus>
+            </TCRMPartyContactMethodBObj>
+            <TCRMPartyContactMethodBObj>
+               <PartyContactMethodIdPK>583069175040127801</PartyContactMethodIdPK>
+               <PartyId>581969175040115101</PartyId>
+               <ContactMethodId>587569175040127701</ContactMethodId>
+               <ContactMethodUsageType>2</ContactMethodUsageType>
+               <ContactMethodUsageValue>Business Telephone</ContactMethodUsageValue>
+               <StartDate>2023-08-16 08:20:50.696</StartDate>
+               <SourceIdentifierType>1</SourceIdentifierType>
+               <SourceIdentifierValue>Retail Banking System</SourceIdentifierValue>
+               <ContactMethodGroupLastUpdateDate>2023-08-16 08:20:50.697</ContactMethodGroupLastUpdateDate>
+               <ContactMethodGroupLastUpdateUser>wasadmin</ContactMethodGroupLastUpdateUser>
+               <ContactMethodGroupLastUpdateTxId>112369218845066001</ContactMethodGroupLastUpdateTxId>
+               <LocationGroupLastUpdateDate>2023-08-16 08:20:50.696</LocationGroupLastUpdateDate>
+               <LocationGroupLastUpdateUser>wasadmin</LocationGroupLastUpdateUser>
+               <LocationGroupLastUpdateTxId>112369218845066001</LocationGroupLastUpdateTxId>
+               <TCRMContactMethodBObj>
+                  <ContactMethodIdPK>587569175040127701</ContactMethodIdPK>
+                  <ReferenceNumber>304191-3374</ReferenceNumber>
+                  <ContactMethodType>1</ContactMethodType>
+                  <ContactMethodValue>Telephone Number</ContactMethodValue>
+                  <ContactMethodLastUpdateDate>2023-08-11 06:40:01.276</ContactMethodLastUpdateDate>
+                  <ContactMethodLastUpdateUser>wasadmin</ContactMethodLastUpdateUser>
+                  <ContactMethodLastUpdateTxId>287869175040114501</ContactMethodLastUpdateTxId>
+                  <DWLStatus>
+                     <Status>5</Status>
+                     <DWLError>
+                        <ComponentType>99</ComponentType>
+                        <ErrorMessage>The data submitted already exists on the database; no update applied.</ErrorMessage>
+                        <ErrorType>DRECERR</ErrorType>
+                        <LanguageCode>100</LanguageCode>
+                        <ReasonCode>603</ReasonCode>
+                        <Severity>5</Severity>
+                        <SeverityValue>Warning</SeverityValue>
+                     </DWLError>
+                  </DWLStatus>
+               </TCRMContactMethodBObj>
+               <DWLStatus>
+                  <Status>0</Status>
+               </DWLStatus>
+            </TCRMPartyContactMethodBObj>
+            <TCRMPartyIdentificationBObj>
+               <IdentificationIdPK>587169175040120201</IdentificationIdPK>
+               <PartyId>581969175040115101</PartyId>
+               <IdentificationType>1</IdentificationType>
+               <IdentificationValue>Social Security Number</IdentificationValue>
+               <IdentificationNumber>48132774</IdentificationNumber>
+               <StartDate>2023-08-16 08:20:50.689</StartDate>
+               <SourceIdentifierType>1</SourceIdentifierType>
+               <SourceIdentifierValue>Retail Banking System</SourceIdentifierValue>
+               <PartyIdentificationLastUpdateDate>2023-08-16 08:20:50.689</PartyIdentificationLastUpdateDate>
+               <PartyIdentificationLastUpdateUser>wasadmin</PartyIdentificationLastUpdateUser>
+               <PartyIdentificationLastUpdateTxId>112369218845066001</PartyIdentificationLastUpdateTxId>
+               <DWLStatus>
+                  <Status>0</Status>
+               </DWLStatus>
+            </TCRMPartyIdentificationBObj>
+            <TCRMAdminContEquivBObj>
+               <AdminContEquivIdPK>588969175040127801</AdminContEquivIdPK>
+               <PartyId>581969175040115101</PartyId>
+               <AdminPartyId>2002</AdminPartyId>
+               <AdminSystemType>1</AdminSystemType>
+               <AdminSystemValue>Admin System 1</AdminSystemValue>
+               <ContEquivLastUpdateDate>2023-08-11 06:40:01.277</ContEquivLastUpdateDate>
+               <ContEquivLastUpdateUser>wasadmin</ContEquivLastUpdateUser>
+               <ContEquivLastUpdateTxId>287869175040114501</ContEquivLastUpdateTxId>
+               <DWLStatus>
+                  <Status>5</Status>
+                  <DWLError>
+                     <ComponentType>99</ComponentType>
+                     <ErrorMessage>The data submitted already exists on the database; no update applied.</ErrorMessage>
+                     <ErrorType>DRECERR</ErrorType>
+                     <LanguageCode>100</LanguageCode>
+                     <ReasonCode>603</ReasonCode>
+                     <Severity>5</Severity>
+                     <SeverityValue>Warning</SeverityValue>
+                  </DWLError>
+               </DWLStatus>
+            </TCRMAdminContEquivBObj>
+            <TCRMPersonNameBObj>
+               <PersonNameIdPK>584769175040117101</PersonNameIdPK>
+               <NameUsageType>1</NameUsageType>
+               <NameUsageValue>Legal</NameUsageValue>
+               <GivenNameOne>Tina</GivenNameOne>
+               <StdGivenNameOne>TINA</StdGivenNameOne>
+               <GivenNameTwo>John</GivenNameTwo>
+               <StdGivenNameTwo>JOHN</StdGivenNameTwo>
+               <LastName>Fell</LastName>
+               <StdLastName>FELL</StdLastName>
+               <PersonPartyId>581969175040115101</PersonPartyId>
+               <StartDate>2012-07-24 00:00:00.0</StartDate>
+               <StandardFormattingIndicator>N</StandardFormattingIndicator>
+               <PersonNameLastUpdateDate>2023-08-11 06:40:01.17</PersonNameLastUpdateDate>
+               <PersonNameLastUpdateUser>wasadmin</PersonNameLastUpdateUser>
+               <PersonNameLastUpdateTxId>287869175040114501</PersonNameLastUpdateTxId>
+               <LastUpdatedBy>wasadmin</LastUpdatedBy>
+               <LastUpdatedDate>2023-08-11 06:40:01.17</LastUpdatedDate>
+               <DWLStatus>
+                  <Status>5</Status>
+                  <DWLError>
+                     <ComponentType>99</ComponentType>
+                     <ErrorMessage>The data submitted already exists on the database; no update applied.</ErrorMessage>
+                     <ErrorType>DRECERR</ErrorType>
+                     <LanguageCode>100</LanguageCode>
+                     <ReasonCode>603</ReasonCode>
+                     <Severity>5</Severity>
+                     <SeverityValue>Warning</SeverityValue>
+                  </DWLError>
+               </DWLStatus>
+            </TCRMPersonNameBObj>
+            <ComponentID>2000013</ComponentID>
+            <AddPartyStatus>3</AddPartyStatus>
+            <SearchPartyDone>Y</SearchPartyDone>
+            <DWLStatus>
+               <Status>5</Status>
+               <DWLError>
+                  <ComponentType>99</ComponentType>
+                  <ErrorMessage>The data submitted already exists on the database; no update applied.</ErrorMessage>
+                  <ErrorType>DRECERR</ErrorType>
+                  <LanguageCode>100</LanguageCode>
+                  <ReasonCode>603</ReasonCode>
+                  <Severity>5</Severity>
+                  <SeverityValue>Warning</SeverityValue>
+               </DWLError>
+            </DWLStatus>
+         </TCRMPersonBObj>
+      </port:addPartyResponse>
+   </soapenv:Body>
+</soapenv:Envelope>

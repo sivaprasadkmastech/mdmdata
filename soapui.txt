@@ -1,0 +1,18 @@
+https://www.soapui.org/downloads/latest-release/
+
+https://www.soapui.org/downloads/soapui/soapui-os-older-versions/
+
+[appadmin@chn-mit-jenkins02 ~]$cd /home/appadmin/
+
+[appadmin@chn-mit-jenkins02 ~]$ ./SoapUI-x64-5.5.0.sh
+
+gui window will open in local as below url for reference see screenshots.
+https://www.soapui.org/getting-started/installing-soapui/installing-on-linux-or-unix/
+
+install with default values
+it will install in 
+/home/appadmin/SmartBear/SoapUI-5.5.0/
+
+/home/appadmin/SmartBear/SoapUI-5.5.0/bin/ --> testrunner.sh and testing xml file will be there in this path
+
+/home/appadmin/SmartBear/SoapUI-5.5.0/ --> to generate test results create 'Reports' folder in this path
