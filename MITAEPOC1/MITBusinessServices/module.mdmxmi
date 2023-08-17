@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdm:MDMModule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mdm="http://www.ibm.com/xmlns/prod/mdm/tools/model/core_v6.ecore" name="MITBusinessServices" id="1" customNature="module" serviceNamespace="http://businessServices.mdm.mit.com" implPackageName="com.mit.mdm.businessServices" componentTypeMetadataIdForComponent="2" componentTypeMetadataIdForController="3" MDMApplication="mdm://MDMSharedResources#/" asiDefinitionRequestAdapterId="4" asiDefinitionResponseAdapterId="5">
+  <MDMPackage name="MITBusinessServices" id="6" componentTypeMetadataIdForComponent="7" componentTypeMetadataIdForController="8">
+    <members xsi:type="mdm:MDMTxn" name="maintainParty" id="9" externalTxnKeyId="10" internalTxnId="12" businessInternalTxnId="13" businessTxReqRespInputId="14" businessTxReqRespOutputId="15" internalTxnKeyId="11" internalTxReqRespInputId="16" internalTxReqRespOutputId="17" responseType="mdm://Party#//Party/@members.Party" implementation="BusinessProxy" componentTypeMetadataIdForBusinessProxies="18" requestType="mdm://Party#//Party/@members.Party">
+      <MDMErrorReason id="19" messageKey="CoreUtils_TransactionErr" modelReadOnly="true" errorType="mdm://MDMSharedResources#//@MDMErrorTypeCode.INSERR" typeCodeId="20" typeCodeForComponentId="22" typeCodeForBusinessProxyId="21"/>
+    </members>
+  </MDMPackage>
+</mdm:MDMModule>

@@ -1,0 +1,268 @@
+<?xml version="1.0"?>
+
+<!-- RBS Build Script without RAD.
+     	 Author: Krishn Kishore 
+	 Date  : 11/07/2023
+-->
+<project name="MITBusinessComponents.cba" default="exportCBA" basedir=".">
+	<description>
+		clean - Clean the temp directories
+		prepare - Create the temp directories
+		checkMDM11LibDirExists - Check if MDM11Lib directory exists *mandatory
+		compileProj - Compile project by given project name
+		jarProj - Create jar file by given project name
+		buildProj - Build project by given project name
+		updatePropertiesFile - Updates the properties file
+		createCBAFile - Creates the CBA file
+		exportCBA - main function
+    </description>
+	
+	<!-- Build Property - filename is provided by cmd argument -->
+	 <property name="BUILD.NAME" value="MITBusinessComponents.cba" /> 
+	<property name="BUILD.ARTIFACT.DIR" value="/home/appadmin/workspace/MDMAEPOC1/artifacts" />
+	<property name="JAVAC.SRC.VERSION" value="1.8" />
+	<property name="JAVAC.TARGET.VERSION" value="1.8" />
+	<property name="JAVAC.COMPILER.PATH" value="/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.362.b09-1.fc36.x86_64/bin/javac" />
+	
+    <!-- <property file="${BUILD.NAME}.properties" /> -->
+	<!-- SQL Files -->
+	<property name="MDMSharedResources.dir" value="/home/appadmin/workspace/MDMAEPOC1/MITAEPOC1/MDMSharedResources"/>	
+	
+	<!-- MDM 11 LIB for compiling -->	
+	<property name="mdm11lib.dir" value="/home/appadmin/workspace/MDMAEPOC1/MDM_11_LIB" />
+	<!-- Temporary Output Directories -->
+	<property file="build.properties"/>
+     <echo>Git Repository name :- You are at ${sitename} </echo>
+	<property name="workspace.dir" value="${sitename}" /> 
+    <property name="build.dir" value="/home/appadmin/workspace/MDMAEPOC1/build" />
+	<property name="class.dir" value="${build.dir}/_class" />
+	<property name="cba.dir" value="${build.dir}/_cba" />
+	<property name="temp.dir" value="${build.dir}/_temp" />
+	<property name="sql.dir" value="${build.dir}/sql" /> 
+	<property name="mf.dir" value="${build.dir}/_mf" /> 
+
+	<!-- Current TimeStamp -->	
+	
+	<tstamp>
+		<format property="time.now" pattern="yyyyMMddHHmm"/>
+	</tstamp>
+	
+	<!-- mdm11lib Libraries -->	
+	<path id="mdm11lib.class.path"> 	
+		<fileset dir="${mdm11lib.dir}" includes="**/*.jar" />
+		<fileset dir="${cba.dir}" includes="*.jar" />
+		<fileset dir="${workspace.dir}/MITBusinessServices/BundleContent" includes="*.jar" />
+		<fileset dir="${workspace.dir}/MITBusinessServices/BundleContent" includes="*.jar" />
+	</path>		
+	
+	<property environment="env" />
+	
+	
+	<!-- Clean -->	
+	<target name="clean">
+		<delete dir="${class.dir}" />
+		<delete dir="${cba.dir}" />	
+		<delete dir="${temp.dir}" />
+		<delete dir="${mf.dir}" />
+		<delete dir="${build.dir}" />
+		
+	</target>
+	
+	<target name="prepare" depends="clean">		
+		<mkdir dir="${build.dir}" />
+		<mkdir dir="${cba.dir}" />
+		<mkdir dir="${class.dir}" />	
+		<mkdir dir="${mf.dir}" />
+		<mkdir dir="${BUILD.ARTIFACT.DIR}" />
+	</target>
+	
+	<!-- Checks if MDM_11_LIB exists -->
+	<target name="checkMDM11LibDirExists">
+		<condition property="mdm11lib.dir.exists">
+			<available file="${mdm11lib.dir}" type="dir"/>
+		</condition>		
+	</target>
+	
+	
+	<!-- Checks if Workspace exists -->
+	<target name="checkWorkspaceDirExists">
+		<condition property="workspace.dir.exists">
+			<available file="${workspace.dir}" type="dir"/>
+		</condition>		
+	</target>
+	
+		
+	<!-- Compile Code -->
+	<target name="compileProj" depends="checkWorkspaceDirExists" if="workspace.dir.exists">	
+		
+		<mkdir dir="${class.dir}/${proj.name}" />
+		<mkdir dir="${mf.dir}/${proj.name}/META-INF" />
+		<echo>Compiling ${workspace.dir}/${proj.name}/src</echo>
+		<javac 	srcdir="${workspace.dir}/${proj.name}/src" destdir="${class.dir}/${proj.name}" classpathref="mdm11lib.class.path" 
+			includeantruntime="false" fork="yes" source="${JAVAC.SRC.VERSION}" target="${JAVAC.TARGET.VERSION}" debug="on" executable="${JAVAC.COMPILER.PATH}" nowarn="true" encoding="ISO-8859-1">
+		</javac>
+		<copy file="${workspace.dir}/${proj.name}/BundleContent/META-INF/MANIFEST.MF" todir="${mf.dir}/${proj.name}/META-INF"/>
+		<replace file="${mf.dir}/${proj.name}/META-INF/MANIFEST.MF" token="qualifier" value="${time.now}"/>
+		
+	</target>	
+	
+	<target name="compileWebProj" depends="checkWorkspaceDirExists" if="workspace.dir.exists">	
+		<mkdir dir="${class.dir}/${proj.name}" />
+		<mkdir dir="${mf.dir}/${proj.name}/META-INF" />
+		<mkdir dir="${class.dir}/${proj.name}/WEB-INF/classes" />
+		<copy file="${workspace.dir}/${proj.name}/WebContent/META-INF/MANIFEST.MF" todir="${mf.dir}/${proj.name}/META-INF"/>
+		
+		<javac 	srcdir="${workspace.dir}/${proj.name}/src" destdir="${class.dir}/${proj.name}/WEB-INF/classes" classpathref="mdm11lib.class.path" 
+			includeantruntime="false" fork="yes" source="${JAVAC.SRC.VERSION}" target="${JAVAC.TARGET.VERSION}" debug="on" executable="${JAVAC.COMPILER.PATH}" nowarn="true" encoding="ISO-8859-1">
+		</javac>
+		<replace file="${mf.dir}/${proj.name}/META-INF/MANIFEST.MF" token="qualifier" value="${time.now}"/>
+		
+		<touch file="${class.dir}/${proj.name}/version.html"></touch>
+		<echo message="TFS Build Version : ${env.JOB_NAME}.${env.BUILD_NUMBER}&lt;br&gt;CBA Version : 1.0.0.${time.now}" file="${class.dir}/${proj.name}/version.html"/>
+		<touch file="${class.dir}/${proj.name}/version.txt"></touch>
+		<echo message="TFS Build Version : ${env.JOB_NAME}.${env.BUILD_NUMBER}${line.separator}" file="${class.dir}/${proj.name}/version.txt"/>
+		<echo message="CBA Version : 1.0.0.${time.now}" append="true" file="${class.dir}/${proj.name}/version.txt"/>
+		
+	</target>
+	
+	
+	<target name="compileHybProj" depends="checkWorkspaceDirExists" if="workspace.dir.exists">	
+		<mkdir dir="${class.dir}/${proj.name}" />
+		<mkdir dir="${mf.dir}/${proj.name}/META-INF" />
+		<copy file="${workspace.dir}/${proj.name}/BundleContent/META-INF/MANIFEST.MF" todir="${mf.dir}/${proj.name}/META-INF"/>
+		
+		
+		<copy todir="${class.dir}/${proj.name}">
+			<fileset dir="${workspace.dir}/${proj.name}/xslbin">
+				<exclude name="**/*.MF"/>
+			</fileset>
+			<fileset dir="${workspace.dir}/${proj.name}/transform">
+				<exclude name="**/*.MF"/>
+			</fileset>
+		</copy>
+		<replace file="${mf.dir}/${proj.name}/META-INF/MANIFEST.MF" token="qualifier" value="${time.now}"/>
+	</target>
+	
+	<!-- Create Project Jar file -->
+	<target name="jarProj">	
+				
+		<jar destfile="${cba.dir}/${proj.name}_1.0.0.${time.now}.jar" update="true" manifest="${mf.dir}/${proj.name}/META-INF/MANIFEST.MF">
+			<fileset dir="${workspace.dir}/${proj.name}/BundleContent">
+				<exclude name="build.properties"/>
+			</fileset>
+			<fileset dir="${class.dir}/${proj.name}" />
+		</jar>
+		
+		<copy todir="${sql.dir}/${proj.name}" failonerror="false">
+			<fileset dir="${workspace.dir}/${proj.name}/resources/sql/db2"/>
+		</copy>
+	</target>
+	
+	<target name="jarWebProj">	
+		<jar destfile="${cba.dir}/${proj.name}_1.0.0.${time.now}.jar" update="true" manifest="${mf.dir}/${proj.name}/META-INF/MANIFEST.MF">
+			<fileset dir="${workspace.dir}/${proj.name}/WebContent">
+				<exclude name="build.properties"/>
+			</fileset>
+			<fileset dir="${class.dir}/${proj.name}" />
+		</jar>
+		
+		<copy todir="${sql.dir}/${proj.name}" failonerror="false">
+			<fileset dir="${workspace.dir}/${proj.name}/resources/sql/db2"/>
+		</copy>
+	</target>
+	
+	
+	<target name="jarHybProj">	
+		<jar destfile="${cba.dir}/${proj.name}_1.0.0.${time.now}.jar" update="true" manifest="${mf.dir}/${proj.name}/META-INF/MANIFEST.MF">
+			<fileset dir="${workspace.dir}/${proj.name}/BundleContent">
+				<exclude name="build.properties"/>
+			</fileset>
+			<fileset dir="${class.dir}/${proj.name}" />
+		</jar>
+		
+		<copy todir="${sql.dir}/${proj.name}" failonerror="false">
+			<fileset dir="${workspace.dir}/${proj.name}/resources/sql/db2"/>
+		</copy>
+	</target>
+	
+	<!-- Build Project Jar file -->
+	<target name="buildProj">	
+		<antcall target="compileProj" />			 
+		<antcall target="jarProj" />
+	</target>
+	
+	<!-- Build Project Jar file -->
+	<target name="buildWebProj">	
+		<antcall target="compileWebProj" />			 
+		<antcall target="jarWebProj" />
+	</target>
+	
+	<!-- Build Project Jar file -->
+	<target name="buildHybProj">	
+		<antcall target="compileHybProj" />			 
+		<antcall target="jarHybProj" />
+	</target>
+	
+	<!-- Copy META-INF directory -->
+	<target name="copyMETA-INF">	
+		<copy todir="${cba.dir}/META-INF">
+			<fileset dir="${workspace.dir}/MITBusinessComponents.cba/META-INF"/>
+		</copy>
+		<replace file="${cba.dir}/META-INF/COMPOSITEBUNDLE.MF" token="qualifier" value="${time.now}"/>
+	</target>
+
+	
+	
+	<!-- Exporting CBA -->
+	<target name="createCBAFile">
+		<manifest file="${cba.dir}/META-INF/COMPOSITEBUNDLE.MF" mode="update">
+			<attribute name="Manifest-Version" value="1.0.0.${time.now}"/> 
+			<attribute name="Created-By" value="AutoBuild"/>  
+			<attribute name="Bundle-Version" value="1.0.0.${time.now}" />				
+		</manifest>
+		<jar destfile="${build.dir}/${BUILD.NAME}.cba.temp" update="true" manifest="${cba.dir}/META-INF/COMPOSITEBUNDLE.MF">
+			<fileset dir="${cba.dir}" />			
+		</jar>
+		
+		<unzip src="${build.dir}/${BUILD.NAME}.cba.temp" dest="${temp.dir}"/>
+		<move file="${temp.dir}/META-INF/MANIFEST.MF" tofile="${temp.dir}/META-INF/COMPOSITEBUNDLE.MF"/>		
+		
+		<jar destfile="${build.dir}/${BUILD.NAME}.cba.temp1" update="true" manifest="${temp.dir}/META-INF/COMPOSITEBUNDLE.MF">
+			<fileset dir="${temp.dir}" />
+		</jar>
+		
+		<zip file="${BUILD.ARTIFACT.DIR}/${BUILD.NAME}_1.0.0.${time.now}.cba">			
+			<zipfileset src="${build.dir}/${BUILD.NAME}.cba.temp1">		
+				<exclude name="META-INF/MANIFEST.MF"/>
+			</zipfileset>
+		</zip>
+		
+	</target>
+	
+	<!-- Exporting CBA -->
+	<target name="exportCBA">		
+		<echo message="********************************************" />
+		<echo message="Exporting ${basedir} file" />
+		<echo message="********************************************" />				
+		<echo>Timestamp = ${time.now}</echo>
+		
+		<antcall target="prepare"/>
+		<delete dir="${BUILD.ARTIFACT.DIR}" />
+
+			
+		<antcall target="buildProj">
+			<param name="proj.name" value="MITCustomModel"/>
+		</antcall> 
+		
+		
+		<antcall target="buildProj">
+			<param name="proj.name" value="MITBusinessServices"/>
+		</antcall>
+		
+		<antcall target="copyMETA-INF"/>	
+		
+		<antcall target="createCBAFile"/>	
+				
+		<antcall target="clean"/>
+	</target>
+</project>

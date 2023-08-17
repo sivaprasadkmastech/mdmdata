@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+	IBM-MDMWB-1.0-[53a8718f575c2d3c0a1a301a0d156a64]
+-->
+<wsdl:definitions name="MITBusinessServices" targetNamespace="http://businessServices.mdm.mit.com/MITBusinessServices/port" 
+	xmlns:mdmport="http://businessServices.mdm.mit.com/MITBusinessServices/port" 
+	xmlns:mdm="http://www.ibm.com/mdm/schema" 
+	xmlns:mdmwsdl="http://www.ibm.com/mdm/wsdl/schema" 
+	xmlns:jaxws="http://java.sun.com/xml/ns/jaxws"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+	
+	<jaxws:bindings>
+        <jaxws:enableWrapperStyle>false</jaxws:enableWrapperStyle>
+    </jaxws:bindings>
+	<wsdl:types>
+		<xsd:schema targetNamespace="http://businessServices.mdm.mit.com/MITBusinessServices/port" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+		<xsd:import namespace="http://www.ibm.com/mdm/schema" schemaLocation="PhysicalMDM.xsd" />
+		<xsd:import namespace="http://www.ibm.com/mdm/wsdl/schema" schemaLocation="MDMWSDLCommon.xsd" />
+
+			<xsd:complexType name="MaintainPartyInputType">
+			<xsd:sequence>
+				<xsd:element maxOccurs="1" minOccurs="1" ref="mdm:RequestControl"/>
+				<xsd:element maxOccurs="1" minOccurs="1" ref="mdm:TCRMPartyBObj"/>
+			</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="MaintainPartyOutputType">
+			<xsd:sequence>
+				<xsd:element maxOccurs="1" minOccurs="1" ref="mdm:ResponseControl"/>
+				<xsd:element maxOccurs="1" minOccurs="1" ref="mdm:TxResult"/>
+				<xsd:element maxOccurs="1" minOccurs="1" ref="mdm:TCRMPartyBObj"/>
+			</xsd:sequence>
+			</xsd:complexType>
+			<xsd:element name="maintainParty" type="mdmport:MaintainPartyInputType"/>
+			<xsd:element name="maintainPartyResponse" type="mdmport:MaintainPartyOutputType"/>
+			<xsd:element name="processingFault" type="mdmwsdl:ProcessingFaultType"/>
+
+		</xsd:schema>
+	</wsdl:types>
+	
+	<wsdl:message name="ProcessingFault">
+		<wsdl:part element="mdmport:processingFault" name="parameters"/>
+	</wsdl:message>
+
+	<wsdl:message name="MaintainPartyRequest">
+		<wsdl:part element="mdmport:maintainParty" name="parameters"/>
+	</wsdl:message>
+	<wsdl:message name="MaintainPartyResponse">
+		<wsdl:part element="mdmport:maintainPartyResponse" name="parameters"/>
+	</wsdl:message>
+	
+
+	<wsdl:portType name="MITBusinessServicesPortType">
+		<wsdl:operation name="maintainParty">
+			<wsdl:input message="mdmport:MaintainPartyRequest"/>
+			<wsdl:output message="mdmport:MaintainPartyResponse"/>
+			<wsdl:fault message="mdmport:ProcessingFault" name="ProcessingFault"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	
+	<wsdl:binding name="MITBusinessServicesHttpBinding" type="mdmport:MITBusinessServicesPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="maintainParty">
+			<soap:operation soapAction=""/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+			<wsdl:fault name="ProcessingFault">
+				<soap:fault name="ProcessingFault" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+	</wsdl:binding>
+	
+	<wsdl:service name="MITBusinessServicesService">
+		<wsdl:port binding="mdmport:MITBusinessServicesHttpBinding" name="MITBusinessServicesPort">
+			<soap:address location="http://localhost:9080/MDMWSProvider/MDMService"/>
+		</wsdl:port>
+	</wsdl:service>
+	
+</wsdl:definitions>
+		

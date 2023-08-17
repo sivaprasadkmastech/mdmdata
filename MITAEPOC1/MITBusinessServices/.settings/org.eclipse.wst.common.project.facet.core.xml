@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faceted-project>
+  <runtime name="WebSphere Application Server traditional V9.0"/>
+  <installed facet="java" version="1.8"/>
+  <installed facet="osgi.bundle" version="1.0"/>
+  <installed facet="com.ibm.mdm.tools.dev" version="1.2"/>
+</faceted-project>

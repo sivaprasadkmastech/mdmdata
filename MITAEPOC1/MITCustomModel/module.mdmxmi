@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdm:MDMModule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mdm="http://www.ibm.com/xmlns/prod/mdm/tools/model/core_v6.ecore" name="MITCustomModel" id="1" customNature="module" serviceNamespace="http://customModels.mdm.mit.com" implPackageName="com.mit.mdm.customModels" componentTypeMetadataIdForComponent="2" componentTypeMetadataIdForController="3" startId="2000000" MDMApplication="mdm://MDMSharedResources#/" asiDefinitionRequestAdapterId="4" asiDefinitionResponseAdapterId="5">
+  <MDMPackage name="MITCustomModel" id="6" componentTypeMetadataIdForComponent="7" componentTypeMetadataIdForController="8">
+    <members xsi:type="mdm:MDMPackage" name="inlineExtension" id="9" componentTypeMetadataIdForComponent="10" componentTypeMetadataIdForController="11">
+      <members xsi:type="mdm:MDMEntityExtension" name="XPerson" id="12" componentTypeMetadataId="13" errorReasonTpCdForFVERR="15" bObjId="14" lastUpdateDateBObjFieldId="16" lastUpdateUserBObjFieldId="17" historyActionCodeBObjFieldId="19" historyCreateDateBObjFieldId="20" historyEndDateBObjFieldId="22" historyCreatedByBObjFieldId="21" lastUpdateTxIdBObjFieldId="18" historyIdPkBObjFieldId="23" tableId="24" historyTableId="25" lastUpdateDateColumnId="26" lastUpdateDateHistoryColumnId="30" lastUpdateUserColumnId="28" lastUpdateUserHistoryColumnId="32" historyActionCodeColumnId="34" historyCreateDateColumnId="29" historyCreatedByColumnId="27" historyEndDateColumnId="33" historyIdPkColumnId="31" historyIdPkBObjColumnId="35" lastUpdateTxIdColumnId="36" extends="mdm://Party#//Party/@members.Person/@members.Person">
+        <MDMProperty xsi:type="mdm:MDMAttribute" name="XBandLevel" id="53" optional="true" bObjFieldId="54">
+          <MDMPersistenceDetails columnId="59" historyColumnId="60"/>
+          <MDMAttributeConstraints xsi:type="mdm:MDMStringAttributeConstraints"/>
+        </MDMProperty>
+        <MDMErrorReason id="37" messageKey="CoreUtils_InsertExtErr" modelReadOnly="true" errorType="mdm://MDMSharedResources#//@MDMErrorTypeCode.INSERR" typeCodeId="38" typeCodeForComponentId="40" typeCodeForBusinessProxyId="39"/>
+        <MDMErrorReason id="41" messageKey="CoreUtils_DeleteExtErr" modelReadOnly="true" errorType="mdm://MDMSharedResources#//@MDMErrorTypeCode.DELERR" typeCodeId="42" typeCodeForComponentId="44" typeCodeForBusinessProxyId="43"/>
+        <MDMErrorReason id="45" messageKey="CoreUtils_ReadExtErr" modelReadOnly="true" errorType="mdm://MDMSharedResources#//@MDMErrorTypeCode.READERR" typeCodeId="46" typeCodeForComponentId="48" typeCodeForBusinessProxyId="47"/>
+        <MDMErrorReason id="49" messageKey="CoreUtils_UpdateExtErr" modelReadOnly="true" errorType="mdm://MDMSharedResources#//@MDMErrorTypeCode.UPDERR" typeCodeId="50" typeCodeForComponentId="52" typeCodeForBusinessProxyId="51"/>
+      </members>
+    </members>
+  </MDMPackage>
+</mdm:MDMModule>

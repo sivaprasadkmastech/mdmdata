@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE project>
+<project default="javadoc">
+	
+	<path id= "projectclasspath">		
+      		<pathelement location="C:\IBM\WebSphere\AppServer\java\8.0\jre\lib\cuda4j.jar"/>
+      		<pathelement location="C:\IBM\WebSphere\AppServer\java\8.0\jre\lib\charsets.jar"/>
+      		<pathelement location="C:\IBM\WebSphere\AppServer\java\8.0\jre\lib\ext\ibmjcefips.jar"/>
+      		<pathelement location="C:\IBM\SDP\com.ibm.mdm.tools\server_bundles\mdm\com.ibm.mdm.server.dwlcommonservices_11.6.0.11-202003022030.jar"/>
+      		<pathelement location="C:\IBM\WebSphere\AppServer\java\8.0\jre\lib\ibmorb.jar"/>
+      		<pathelement location="C:\IBM\SDP\com.ibm.mdm.tools\server_bundles\mdm\com.ibm.mdm.server.config.client_11.6.0.11-202003022030.jar"/>
+      		<pathelement location="C:\IBM\WebSphere\AppServer\java\8.0\jre\lib\ibmpkcs.jar"/>
+      		<pathelement location="C:\IBM\SDP\com.ibm.mdm.tools\server_bundles\mdm\com.ibm.mdm.server.party_11.6.0.11-202003022050.jar"/>
+      		<pathelement location="C:\IBM\SDP\com.ibm.mdm.tools\server_bundles\mdm\com.ibm.mdm.server.commonutils_11.6.0.11-202003022030.jar"/>
+      		<pathelement location="C:\IBM\WebSphere\AppServer\java\8.0\jre\lib\ibmcertpathprovider.jar"/>
+      		<pathelement location="C:\IBM\WebSphere\AppServer\java\8.0\jre\lib\ext\access-bridge-64.jar"/>
+      		<pathelement location="C:\IBM\WebSphere\AppServer\java\8.0\jre\lib\ibmjsseprovider2.jar"/>
+      		<pathelement location="C:\IBM\SDP\com.ibm.mdm.tools\server_bundles\mdm\com.ibm.mdm.server.logging_11.6.0.11-202003022030.jar"/>
+      		<pathelement location="C:\IBM\WebSphere\AppServer\java\8.0\jre\lib\ext\IBMSecureRandom.jar"/>
+      		<pathelement location="C:\IBM\WebSphere\AppServer\java\8.0\jre\lib\ext\ibmcac.jar"/>
+      		<pathelement location="C:\IBM\WebSphere\AppServer\java\8.0\jre\lib\resources.jar"/>
+      		<pathelement location="C:\IBM\WebSphere\AppServer\java\8.0\jre\lib\ibmgpu.jar"/>
+      		<pathelement location="C:\IBM\SDP\com.ibm.mdm.tools\server_bundles\mdm\com.ibm.mdm.thirdparty.pdq_11.6.0.11-202003022030"/>
+      		<pathelement location="C:\IBM\WebSphere\AppServer\java\8.0\jre\lib\ibmorbapi.jar"/>
+      		<pathelement location="C:\IBM\WebSphere\AppServer\java\8.0\jre\lib\ext\xmlencfw.jar"/>
+      		<pathelement location="C:\IBM\WebSphere\AppServer\java\8.0\jre\lib\ext\gskikm.jar"/>
+      		<pathelement location="C:\RBS\MITPOC\MITCustomModel\build\classes"/>
+      		<pathelement location="C:\IBM\WebSphere\AppServer\java\8.0\jre\lib\ibmjgssprovider.jar"/>
+      		<pathelement location="C:\IBM\WebSphere\AppServer\java\8.0\jre\lib\ibmsaslfw.jar"/>
+      		<pathelement location="C:\IBM\WebSphere\AppServer\java\8.0\jre\lib\se-service.jar"/>
+      		<pathelement location="C:\IBM\WebSphere\AppServer\java\8.0\jre\lib\ext\healthcenter.jar"/>
+      		<pathelement location="C:\IBM\SDP\com.ibm.mdm.tools\server_bundles\mdm\com.ibm.mdm.server.bizservices_11.6.0.11-202003022030.jar"/>
+      		<pathelement location="C:\IBM\WebSphere\AppServer\java\8.0\jre\lib\xml.jar"/>
+      		<pathelement location="C:\RBS\MITPOC\.metadata\.plugins\org.eclipse.pde.core\.external_libraries\com.ibm.mdm.server.dwlcommonservices_11.6.0.11-202003022030\sqlj.zip"/>
+      		<pathelement location="C:\IBM\SDP\com.ibm.mdm.tools\server_bundles\mdm\com.ibm.mdm.thirdparty.pdq_11.6.0.11-202003022030\pdq.jar"/>
+      		<pathelement location="C:\IBM\WebSphere\AppServer\java\8.0\jre\lib\ext\ibmpkcs11impl.jar"/>
+      		<pathelement location="C:\RBS\MITPOC\.metadata\.plugins\org.eclipse.pde.core\.external_libraries\com.ibm.mdm.server.logging_11.6.0.11-202003022030\log4j.jar"/>
+      		<pathelement location="C:\IBM\WebSphere\AppServer\java\8.0\jre\lib\dataaccess.jar"/>
+      		<pathelement location="C:\IBM\WebSphere\AppServer\java\8.0\jre\lib\ibmjcefw.jar"/>
+      		<pathelement location="C:\IBM\WebSphere\AppServer\java\8.0\jre\lib\ibmjgssfw.jar"/>
+      		<pathelement location="C:\IBM\SDP\com.ibm.mdm.tools\server_bundles\mdm\com.ibm.mdm.server.codetypes_11.6.0.11-202003022030.jar"/>
+      		<pathelement location="C:\IBM\SDP\com.ibm.mdm.tools\server_bundles\mdm\com.ibm.mdm.server.config.repo_11.6.0.11-202003022030.jar"/>
+      		<pathelement location="C:\IBM\WebSphere\AppServer\java\8.0\jre\lib\ext\cldrdata.jar"/>
+      		<pathelement location="C:\IBM\SDP\com.ibm.mdm.tools\server_bundles\mdm\com.ibm.mdm.server.btm_11.6.0.11-202003022030.jar"/>
+      		<pathelement location="C:\RBS\MITPOC\.metadata\.plugins\org.eclipse.pde.core\.external_libraries\com.ibm.mdm.server.dwlcommonservices_11.6.0.11-202003022030\arm4.jar"/>
+      		<pathelement location="C:\IBM\WebSphere\AppServer\java\8.0\jre\lib\ext\ibmcmsprovider.jar"/>
+      		<pathelement location="C:\RBS\MITPOC\.metadata\.plugins\org.eclipse.pde.core\.external_libraries\com.ibm.mdm.server.party_11.6.0.11-202003022050\Acxiom.jar"/>
+      		<pathelement location="C:\IBM\WebSphere\AppServer\java\8.0\jre\lib\ext\ibmxmlcrypto.jar"/>
+      		<pathelement location="C:\IBM\WebSphere\AppServer\java\8.0\jre\lib\ext\zipfs.jar"/>
+      		<pathelement location="C:\IBM\WebSphere\AppServer\java\8.0\jre\lib\ibmcertpathfw.jar"/>
+      		<pathelement location="C:\IBM\SDP\com.ibm.mdm.tools\server_bundles\mdm\com.ibm.mdm.server.coreutilities_11.6.0.11-202003022030.jar"/>
+      		<pathelement location="C:\IBM\WebSphere\AppServer\java\8.0\jre\lib\ext\dtfj.jar"/>
+      		<pathelement location="C:\IBM\WebSphere\AppServer\java\8.0\jre\lib\ibmcfw.jar"/>
+      		<pathelement location="C:\IBM\WebSphere\AppServer\java\8.0\jre\lib\ext\traceformat.jar"/>
+      		<pathelement location="C:\IBM\WebSphere\AppServer\java\8.0\jre\lib\ext\ibmxmldsigprovider.jar"/>
+      		<pathelement location="C:\IBM\WebSphere\AppServer\java\8.0\jre\lib\ibmjssefw.jar"/>
+      		<pathelement location="C:\IBM\WebSphere\AppServer\java\8.0\jre\lib\ext\ibmkeycert.jar"/>
+      		<pathelement location="C:\IBM\WebSphere\AppServer\java\8.0\jre\lib\rt.jar"/>
+      		<pathelement location="C:\IBM\WebSphere\AppServer\java\8.0\jre\lib\ext\ibmjceprovider.jar"/>
+      		<pathelement location="C:\IBM\WebSphere\AppServer\java\8.0\jre\lib\ext\nashorn.jar"/>
+      		<pathelement location="C:\IBM\WebSphere\AppServer\java\8.0\jre\lib\xmldsigfw.jar"/>
+      		<pathelement location="C:\IBM\WebSphere\AppServer\java\8.0\jre\lib\ext\CmpCrmf.jar"/>
+      		<pathelement location="C:\IBM\WebSphere\AppServer\java\8.0\jre\lib\ext\localedata.jar"/>
+      		<pathelement location="C:\RBS\MITPOC\.metadata\.plugins\org.eclipse.pde.core\.external_libraries\com.ibm.mdm.server.mgmtcommon_11.6.0.11-202003022030\jaxb-xjc.jar"/>
+      		<pathelement location="C:\IBM\WebSphere\AppServer\java\8.0\jre\lib\ext\ibmsaslprovider.jar"/>
+      		<pathelement location="C:\IBM\WebSphere\AppServer\java\8.0\jre\bin\compressedrefs\jclSC180\vm.jar"/>
+      		<pathelement location="C:\IBM\WebSphere\AppServer\java\8.0\jre\lib\ext\jaccess.jar"/>
+      		<pathelement location="C:\IBM\WebSphere\AppServer\java\8.0\jre\lib\ext\ibmxmlencprovider.jar"/>
+      		<pathelement location="C:\IBM\WebSphere\AppServer\java\8.0\jre\lib\ext\dtfj-interface.jar"/>
+      		<pathelement location="C:\IBM\WebSphere\AppServer\java\8.0\jre\lib\ext\dtfjview.jar"/>
+      		<pathelement location="C:\IBM\WebSphere\AppServer\java\8.0\jre\lib\ext\dnsns.jar"/>
+      		<pathelement location="C:\IBM\SDP\com.ibm.mdm.tools\server_bundles\mdm\com.ibm.mdm.server.mgmtcommon_11.6.0.11-202003022030.jar"/>
+      		<pathelement location="C:\IBM\WebSphere\AppServer\java\8.0\jre\lib\math.jar"/>
+    </path>
+
+
+    <target name="javadoc">
+    	<delete dir="doc/javadoc" verbose="true"/>
+	<!--  BEGIN User editable section  -->
+        <javadoc 
+        	access="protected"
+        	author="true"
+        	classpathref="projectclasspath"
+        	destdir="doc/javadoc"
+        	nodeprecated="false"
+        	nodeprecatedlist="false"
+        	noindex="false"
+        	nonavbar="false"
+        	notree="false"
+        	packagenames="com.mit.mdm.customModels.*"
+        	source="1.6"
+        	sourcepath="src"
+        	splitindex="true" 
+        	use="true" 
+        	version="true"
+    	>
+        	<tag name="generated"/>
+        	<tag name="Update("/>
+        	<tag name="Select("/>
+        </javadoc>
+	<!-- END User editable section  -->      
+    </target>
+</project>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0" default-activation="eager">
+
+    <reference id="configManager" interface="com.ibm.mdm.server.config.api.ConfigManager" activation="eager" timeout="60000"/>
+
+    <service id="XSDFinderService" interface="com.dwl.base.xml.XSDFinder" activation="lazy">
+        <service-properties>
+            <entry key="CoreSchema" value="false"/>
+        </service-properties>
+        <bean class="com.dwl.base.xml.XSDFinderImpl">
+            <property name="bpContainer" ref="blueprintContainer"/>
+            <property name="bundle" ref="blueprintBundle"/>
+        </bean>
+    </service>
+
+
+  
+
+  
+  
+
+    <service id="BObjQueryFactoryService" interface="com.ibm.mdm.common.servicefactory.api.BObjQueryFactory" ranking="30"> 
+      <bean class="com.ibm.mdm.common.servicefactory.BObjQueryFactoryImpl" >
+        <argument>
+          <map>
+            <entry key="com.dwl.tcrm.coreParty.bobj.query.PartyModuleBObjQueryFactory">
+              <bean class="com.mit.mdm.customModels.bobj.query.XPartyModuleBObjQueryFactoryImpl"/>
+            </entry>
+          </map>
+        </argument>
+        <argument ref="blueprintBundle"/>
+      </bean>
+    </service>
+    
+    <service id="BObjPersistenceFactoryService" interface="com.ibm.mdm.common.servicefactory.api.BObjPersistenceFactory" ranking="30"> 
+      <bean class="com.ibm.mdm.common.servicefactory.BObjPersistenceFactoryImpl" >
+        <argument>
+          <map>
+            <entry key="com.dwl.tcrm.coreParty.bobj.query.PartyModuleBObjPersistenceFactory">
+              <bean class="com.mit.mdm.customModels.bobj.query.XPartyModuleBObjQueryFactoryImpl"/>
+            </entry>
+          </map>
+        </argument>
+        <argument ref="blueprintBundle"/>
+      </bean>
+    </service>
+
+
+    <service interface="com.ibm.mdm.common.bobj.api.BObjFactoryService" ranking="20">
+        <service-properties>
+            <entry key="business.object">
+                <list>
+                    <value>XPersonBObjExt</value>
+                    <value>TCRMPersonBObj</value>
+                </list>
+            </entry>
+        </service-properties>
+        <bean class="com.ibm.mdm.common.bobj.BObjFactoryServiceImpl">
+            <argument>
+                <map key-type="java.lang.String" value-type="java.lang.Class">
+                    <entry key="XPersonBObjExt" value="com.mit.mdm.customModels.component.XPersonBObjExt"/>
+                    <entry key="TCRMPersonBObj" value="com.mit.mdm.customModels.component.XPersonBObjExt"/>
+                </map>
+            </argument>
+            <argument ref="blueprintBundle"/>
+        </bean>
+    </service>
+
+
+
+
+</blueprint>
