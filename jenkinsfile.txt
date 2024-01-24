@@ -51,5 +51,35 @@ pipeline {
                 subject: '$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!', to: 'sivamit2022@gmail.com'
             }
         }
+       stage('DEV Approval Stage') {
+          steps {
+          echo "Getting approval from Dev team manager for SAPE deployment"
+            timeout(time:7, unit: 'DAYS'){
+            input message: 'Do you want to deploy in SAPE env?', submitter: 'admin'
+            }
+           }
+        }
+        stage('UAT Deploy Stage') {
+          steps {
+              echo "UAT Deployment Successfull"
+           }
+          }
+        stage('UAT Regression Test') {
+            steps {
+                echo "UAT Regression Testing Successfull"
+           }
+          }
+        stage('UAT Email Notification'){
+            steps {
+                emailext body: "${currentBuild.currentResult}: Job ${env.JOB_NAME}\nMore Info can be found here for SAPE Environment: ${env.BUILD_URL}", 
+                subject: '$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!', to: 'sivamit2022@gmail.com'
+            }
+          
+        }
+        stage('UAT Slack notification Stage') {
+          steps {
+            slackSend(channel:'mdmslack', message: "Deploy Sucessful in UAT here is the info -job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
+          }
+        }
     }
 }
