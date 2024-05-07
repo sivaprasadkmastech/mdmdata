@@ -1,0 +1,99 @@
+# Ant
+# Build your Java projects and run tests with Apache Ant.
+# Add steps that save build artifacts and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/java
+
+trigger:
+- Dev-Branch
+
+pool:
+ name: Default
+
+steps:
+- task: SSH@0
+  displayName: "Removing old CBA Files"
+  inputs:
+    sshEndpoint: 'MDM01'
+    runOptions: 'inline'
+    inline: |
+      hostname
+      echo "$USER"
+      pwd 
+      ls -l /tmp/ | grep MITD* 
+      ls -l /opt/App/IBM/deployments/artifacts/
+      echo "Cleaning up /tmp residues..."
+      rm -rfv /tmp/MITD*.cba
+      echo "Cleaning up old cba files from deployment..."
+      rm -rfv /opt/App/IBM/deployments/artifacts/*
+      echo "Cleanup done."
+    readyTimeout: '20000'
+- task: Ant@1
+  displayName: "Building the CBA"
+  inputs:
+    buildFile: 'Build-Deploy-main/build.xml'
+    options: 
+    publishJUnitResults: false
+    javaHomeOption: 'JDKVersion'
+- task: CopyFilesOverSSH@0
+  displayName: "Copying CBA to the Server"
+  inputs:
+    sshEndpoint: 'MDM01'
+    sourceFolder: '/tmp/MITDemo/artifacts/'
+    contents: '**'
+    targetFolder: '/opt/App/IBM/deployments/artifacts/'
+    readyTimeout: '20000'
+- task: CopyFilesOverSSH@0
+  displayName: "Copying deployment scripts to the Server"
+  inputs:
+    sshEndpoint: 'MDM01'
+    sourceFolder: 'Build-Deploy-main/scripts'
+    contents: '**'
+    targetFolder: '/tmp/scripts'
+    readyTimeout: '20000'
+- task: SSH@0
+  displayName: "Deploying the CBA"
+  inputs:
+    sshEndpoint: 'MDM01'
+    runOptions: 'inline'
+    inline: |
+      ls -l /tmp/scripts
+      chmod -R +x /tmp/scripts
+      
+      cd /tmp/scripts
+      ./installCba.sh
+    readyTimeout: '20000'
+- task: SSH@0
+  displayName: "Restarting the MDM APP server"
+  inputs:
+    sshEndpoint: 'MDM01'
+    runOptions: 'inline'
+    inline: |
+      cd /opt/App/IBM/WebSphere/AppServer/profiles/AppSrv01/bin
+      ./stopServer.sh server1 -username 'wasadmin' -password 'wasadmin'
+      sleep 10
+      ./startServer.sh server1
+    readyTimeout: '20000'
+- task: SSH@0
+  displayName: "Regression Testing"
+  inputs:
+    sshEndpoint: 'MDM01'
+    runOptions: 'inline'
+    inline: |
+      cd /opt/App/IBM/MDM/IVT
+      ./verify.sh mdmusr 'mdmusr@123' wasadmin wasadmin false none none >>log.txt 2>&1
+      sleep 10
+    readyTimeout: '20000'
+- task: SSH@0
+  displayName: "Validation"
+  inputs:
+    sshEndpoint: 'MDM01'
+    runOptions: 'inline'
+    inline: 'cat /opt/App/IBM/MDM/IVT/testCases/xml/response/ResponsegetParty.xml'
+    readyTimeout: '20000'
+- task: CopyFiles@2
+  displayName: "Archiving the deployed packages"
+  inputs:
+    SourceFolder: '/tmp/MITDemo/artifacts/'
+    Contents: '**'
+    TargetFolder: '/home/appadmin/MITDEMOCBA_Oldbuilds'
+    readyTimeout: '20000'
