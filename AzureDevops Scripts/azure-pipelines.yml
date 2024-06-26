@@ -1,0 +1,112 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+  tags:
+    include:
+    - v.*
+
+pool:
+  name: Default
+
+steps:
+- task: Ant@1
+  displayName: "Building CBA with Ant"
+  inputs:
+    buildFile: 'MITAEPOC1/build.xml'
+    options: 
+    publishJUnitResults: false
+    antHomeDirectory: '/opt/apache-ant-1.10.13'
+    javaHomeOption: 'JDKVersion'
+- task: CopyFiles@2
+  displayName: "Archiving the deployed packages"
+  inputs:
+    SourceFolder: '/opt/mdmaebuilds/artifacts/'
+    Contents: '**'
+    TargetFolder: '/opt/mdmaebuilds/old_cbabuilds/'
+- task: CopyFilesOverSSH@0
+  displayName: "Copying Remove OSGI Extn scripts to the Server "
+  inputs:
+    sshEndpoint: 'MDM01'
+    sourceFolder: '/opt/mdmaebuilds/removeosgiextnscripts/'
+    contents: '**'
+    targetFolder: '/opt/App/IBM/WebSphere/AppServer/bin/'
+    readyTimeout: '20000'
+- task: SSH@0
+  displayName: "Providing Permissions to scripts"
+  inputs:
+    sshEndpoint: 'MDM01'
+    runOptions: 'inline'
+    inline: |
+      cd /opt/App/IBM/WebSphere/AppServer/bin
+      pwd
+      chmod -R 777 MITRemoveOSGIExtn.sh MITRemove.py MITRemove.sh
+    readyTimeout: '20000'
+- task: SSH@0
+  displayName: "Removing old CBA from a composition unit Extn"
+  inputs:
+    sshEndpoint: 'MDM01'
+    runOptions: 'inline'
+    inline: |
+      cd /opt/App/IBM/WebSphere/AppServer/bin
+      ./MITRemoveOSGIExtn.sh
+    readyTimeout: '20000'
+- task: SSH@0
+  displayName: "Removing old CBA file in server"
+  inputs:
+    sshEndpoint: 'MDM01'
+    runOptions: 'inline'
+    inline: |
+      ls -l /opt/App/mdmaepoc/artifacts/
+      echo "Cleaning up old cba files from artifacts."
+      rm -rf /opt/App/mdmaepoc/artifacts/*
+      echo "Cleanup done."
+    readyTimeout: '20000'
+- task: CopyFilesOverSSH@0
+  displayName: "Copying CBA to the Server"
+  inputs:
+    sshEndpoint: 'MDM01'
+    sourceFolder: '/opt/mdmaebuilds/artifacts/'
+    contents: '**'
+    targetFolder: '/opt/App/mdmaepoc/artifacts/'
+    readyTimeout: '20000'
+- task: CopyFilesOverSSH@0
+  displayName: "Copying deployment scripts to the Server"
+  inputs:
+    sshEndpoint: 'MDM01'
+    sourceFolder: '/opt/mdmaebuilds/scripts/'
+    contents: '**'
+    targetFolder: '/opt/App/IBM/WebSphere/AppServer/bin/'
+    readyTimeout: '20000'
+- task: SSH@0
+  displayName: "Providing Permissions to scripts"
+  inputs:
+    sshEndpoint: 'MDM01'
+    runOptions: 'inline'
+    inline: |
+      cd /opt/App/IBM/WebSphere/AppServer/bin
+      pwd
+      chmod -R 777 MITInstall.sh MITDeploy.py MITDeploy.sh
+    readyTimeout: '20000'
+- task: SSH@0
+  displayName: "Deploying the CBA"
+  inputs:
+    sshEndpoint: 'MDM01'
+    runOptions: 'inline'
+    inline: |
+      cd /opt/App/IBM/WebSphere/AppServer/bin
+      ./MITInstall.sh 
+    readyTimeout: '20000'
+- task: SSH@0
+  displayName: "Restarting the MDM Server"
+  inputs:
+    sshEndpoint: 'MDM01'
+    runOptions: 'inline'
+    inline: |
+      cd /opt/App/IBM/WebSphere/AppServer/profiles/AppSrv01/bin
+      ./stopServer.sh server1 -username 'wasadmin' -password 'wasadmin'
+      sleep 10
+      ./startServer.sh server1
+    readyTimeout: '20000'
