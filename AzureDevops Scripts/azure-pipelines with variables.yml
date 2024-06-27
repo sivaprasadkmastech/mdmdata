@@ -1,12 +1,14 @@
+
 # Starter pipeline
 # Start with a minimal pipeline that you can customize to build and deploy your code.
 # Add steps that build, run tests, deploy, and more:
 # https://aka.ms/yaml
 
 trigger:
-  tags:
-    include:
-    - v.*
+- none
+#  tags:
+#    include:
+#    - v.*
 
 pool:
   name: Default
@@ -45,7 +47,7 @@ steps:
     inline: |
       cd $(WAS_Dir)/bin
       pwd
-      chmod -R 777 MITRemoveOSGIExtn.sh MITRemove.py MITRemove.sh
+      chmod -R +x MITRemoveOSGIExtn.sh MITRemove.py MITRemove.sh
     readyTimeout: '20000'
 - task: SSH@0
   displayName: "Removing old CBA from a composition unit Extn"
@@ -91,7 +93,7 @@ steps:
     inline: |
       cd $(WAS_Dir)/bin
       pwd
-      chmod -R 777 MITInstall.sh MITDeploy.py MITDeploy.sh
+      chmod -R +x MITInstall.sh MITDeploy.py MITDeploy.sh
     readyTimeout: '20000'
 - task: SSH@0
   displayName: "Deploying the CBA"
@@ -103,12 +105,12 @@ steps:
       ./MITInstall.sh 
     readyTimeout: '20000'
 - task: SSH@0
-  displayName: "Restarting the MDM Server"
+  displayName: "Restarting the APP Server"
   inputs:
     sshEndpoint: 'MDM01'
     runOptions: 'inline'
     inline: |
-      cd $(WAS_Dir)profiles/AppSrv01/bin
+      cd $(WAS_Dir)/profiles/AppSrv01/bin
       ./stopServer.sh server1 -username '$(WASUsr)' -password '$(WASPwd)'
       sleep 10
       ./startServer.sh server1
