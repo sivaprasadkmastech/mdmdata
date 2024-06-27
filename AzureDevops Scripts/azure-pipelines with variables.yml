@@ -1,0 +1,115 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+  tags:
+    include:
+    - v.*
+
+pool:
+  name: Default
+
+variables:
+    - group: AZDMDMAEPOC
+
+steps:
+- task: Ant@1
+  displayName: "Building CBA with Ant"
+  inputs:
+    buildFile: 'MITAEPOC1/build.xml'
+    options: 
+    publishJUnitResults: false
+    antHomeDirectory: '$(AntHomeDir)'
+    javaHomeOption: 'JDKVersion'
+- task: CopyFiles@2
+  displayName: "Archiving the deployed packages"
+  inputs:
+    SourceFolder: '$(SRCCBA_Dir)'
+    Contents: '**'
+    TargetFolder: '$(OldArtifacts_Dir)'
+- task: CopyFilesOverSSH@0
+  displayName: "Copying Remove OSGI Extn scripts to the Server "
+  inputs:
+    sshEndpoint: 'MDM01'
+    sourceFolder: '$(SRCRmvOSGIExtn_Dir)'
+    contents: '**'
+    targetFolder: '$(WAS_Dir)/bin/'
+    readyTimeout: '20000'
+- task: SSH@0
+  displayName: "Providing Permissions to scripts"
+  inputs:
+    sshEndpoint: 'MDM01'
+    runOptions: 'inline'
+    inline: |
+      cd $(WAS_Dir)/bin
+      pwd
+      chmod -R 777 MITRemoveOSGIExtn.sh MITRemove.py MITRemove.sh
+    readyTimeout: '20000'
+- task: SSH@0
+  displayName: "Removing old CBA from a composition unit Extn"
+  inputs:
+    sshEndpoint: 'MDM01'
+    runOptions: 'inline'
+    inline: |
+      cd $(WAS_Dir)/bin
+      ./MITRemoveOSGIExtn.sh
+    readyTimeout: '20000'
+- task: SSH@0
+  displayName: "Removing old CBA file in server"
+  inputs:
+    sshEndpoint: 'MDM01'
+    runOptions: 'inline'
+    inline: |
+      ls -l $(Artifacts_Dir)
+      echo "Cleaning up old cba files from artifacts."
+      rm -rf $(Artifacts_Dir)*
+      echo "Cleanup done."
+    readyTimeout: '20000'
+- task: CopyFilesOverSSH@0
+  displayName: "Copying CBA to the Server"
+  inputs:
+    sshEndpoint: 'MDM01'
+    sourceFolder: '$(SRCCBA_Dir)'
+    contents: '**'
+    targetFolder: '$(Artifacts_Dir)'
+    readyTimeout: '20000'
+- task: CopyFilesOverSSH@0
+  displayName: "Copying deployment scripts to the Server"
+  inputs:
+    sshEndpoint: 'MDM01'
+    sourceFolder: '$(SRCScript_Dir)'
+    contents: '**'
+    targetFolder: '$(WAS_Dir)/bin/'
+    readyTimeout: '20000'
+- task: SSH@0
+  displayName: "Providing Permissions to scripts"
+  inputs:
+    sshEndpoint: 'MDM01'
+    runOptions: 'inline'
+    inline: |
+      cd $(WAS_Dir)/bin
+      pwd
+      chmod -R 777 MITInstall.sh MITDeploy.py MITDeploy.sh
+    readyTimeout: '20000'
+- task: SSH@0
+  displayName: "Deploying the CBA"
+  inputs:
+    sshEndpoint: 'MDM01'
+    runOptions: 'inline'
+    inline: |
+      cd $(WAS_Dir)/bin
+      ./MITInstall.sh 
+    readyTimeout: '20000'
+- task: SSH@0
+  displayName: "Restarting the MDM Server"
+  inputs:
+    sshEndpoint: 'MDM01'
+    runOptions: 'inline'
+    inline: |
+      cd $(WAS_Dir)profiles/AppSrv01/bin
+      ./stopServer.sh server1 -username '$(WASUsr)' -password '$(WASPwd)'
+      sleep 10
+      ./startServer.sh server1
+    readyTimeout: '20000'
